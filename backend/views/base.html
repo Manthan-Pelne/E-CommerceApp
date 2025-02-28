@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <link rel="icon" type="image/x-icon" href="" />
+    <link rel="preconnect" href="https:fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/output.css" />
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Assistant:wght@200..800&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Outfit:wght@100..900&display=swap');
+      </style>
+    {% block meta %} {% endblock meta %}
+  </head>
+  <body  class="red-hat  text-gray-900 h-[100vh] ">
+    {% include 'include/header.html' %} 
+        <main class="w-full">
+        {% block body %} 
+        
+        {% endblock body %} 
+      </main>
+      {% include 'include/footer.html' %} 
+  
+
+</body>
+<script src="https:unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
+<script src="https:cdn.jsdelivr.net/npm/flowbite@2.5.1/dist/flowbite.min.js"></script>
+
+</html>

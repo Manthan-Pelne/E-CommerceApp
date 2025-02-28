@@ -1,0 +1,190 @@
+{% extends 'base.html' %}
+{% block meta %}
+{% 
+  set seometa = { 
+    title: "", 
+    description: "", 
+    canonical: "" 
+  } 
+%} 
+  {% include 'include/meta.html' %}
+{% endblock meta %}
+{% block body %}
+
+<section class=' bg'>
+  <div class='max-w-screen-2xl mx-auto m-auto px-8 py-8 flex justify-center gap-10'>
+    <div class='text-[#f5f4f0] w-[38%] m-auto flex flex-col gap-5 leading-[80px]'>
+      <p class='text-[90px] font-extrabold'>WELCOME <br /> BACK</p>
+      <p class='text-[18px] leading-[25px]'>Sign back in Lorem ipsum dolor sit amet consectetur adipisicing. <br /> the art of being human.</p>
+      <img class='w-[70%]' src="/cover.png" alt="" />
+    </div>
+
+    <div class="w-[40%]">
+      <div class="flex justify-center bg-[#316155] rounded-[3px] p-2 mb-6 w-[90%] mx-auto">
+        <button id="consumerTab" value="1"
+          class="flex-1 cursor-pointer text-[17px] text-center py-2 text-sm font-bold text-gray-600 transition-all duration-300 bg-white rounded-[3px] shadow-md">Consumer</button>
+        <button id="sellerTab"
+          class="flex-1 cursor-pointer text-[17px] text-center py-2 text-sm font-bold text-gray-200 transition-all rounded-[3px] duration-300">Seller</button>
+      </div>
+
+      <div class="relative overflow-hidden w-[90%] mx-auto">
+        <div class="flex transition-transform duration-300 ease-in-out" id="formSlider">
+          <div class="w-full flex-shrink-0">
+            <div class="flex flex-col py-10 px-12 bg-[#f5f4f0]">
+              <label class="tracking-wide text-[#074839] font-[900] text-[20px]">Username</label>
+              <input required type="text" name="username" id="username" class="border pl-2 mt-1 py-2 border-gray-400" type="text" />
+
+              <label class="mt-8 tracking-wide text-[#074839] font-[900] text-[20px]">Email</label>
+              <input required type="email" name="email" id="consumerEmail" class="border pl-2 mt-1 py-2 border-gray-400" type="text" />
+
+              <label class="mt-8 tracking-wide text-[#074839] font-[900] text-[20px]">Password</label>
+              <input required type="password" name="password" id="password" class="border pl-2 mt-1 py-2 border-gray-400"
+                type="password" />
+
+              <button class="signupBtn flex justify-center cursor-pointer items-center mt-10 bg-[#043328] text-white py-3 font-bold tracking-wide rounded hover:brightness-75"
+                data-tab="consumer">
+                <span id="signupText">SIGN UP</span>
+                <svg id="spin" class="hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14m0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10" clip-rule="evenodd" opacity="0.2"/><path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7z"/></g></svg>
+              </button>
+
+              <p class="mt-8 text-center">Already signed up? <a href="/login" class="underline">Login</a></p>
+            </div>
+          </div>
+
+          <div class="w-full flex-shrink-0">
+            <div class="flex flex-col py-10 px-12 bg-[#f5f4f0]">
+              <label class="tracking-wide text-[#074839] font-[900] text-[20px]">Business Name</label>
+              <input required type="text" name="name" id="bussinessName" class="border pl-2 mt-1 py-2 border-gray-400" type="text" />
+
+              <label class="mt-8 tracking-wide text-[#074839] font-[900] text-[20px]">Business Email</label>
+              <input required type="email"  name="email" id="sellerEmail" class="border pl-2 mt-1 py-2 border-gray-400" type="text" />
+
+              <label class="mt-8 tracking-wide text-[#074839] font-[900] text-[20px]">Password</label>
+              <input required type="password" name="password" id="bussinessPassword" class="border pl-2 mt-1 py-2 border-gray-400"
+                type="password" />
+
+              <button class="signupBtn flex justify-center items-center cursor-pointer mt-10 bg-[#043328] text-white py-3 font-bold tracking-wide rounded hover:brightness-75"
+                data-tab="seller">
+                <span id="signupText">SIGN UP</span>
+                <svg id="spin" class=" hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14m0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10" clip-rule="evenodd" opacity="0.2"/><path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7z"/></g></svg>
+              </button>
+
+              <p class="mt-8 text-center">Already signed up? <a href="/login" class="underline">Login</a></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  const consumerTab = document.getElementById("consumerTab");
+  const sellerTab = document.getElementById("sellerTab");
+  const formSlider = document.getElementById("formSlider");
+
+  consumerTab.addEventListener("click", () => {
+    formSlider.style.transform = "translateX(0)";
+    consumerTab.classList.add("bg-white", "shadow-md", "text-gray-600");
+    sellerTab.classList.remove("bg-white", "shadow-md", "text-gray-600");
+    sellerTab.classList.add("text-gray-200");
+  });
+
+  sellerTab.addEventListener("click", () => {
+    formSlider.style.transform = "translateX(-100%)";
+    sellerTab.classList.add("bg-white", "shadow-md", "text-gray-600");
+    consumerTab.classList.remove("bg-white", "shadow-md", "text-gray-600");
+    consumerTab.classList.add("text-gray-200");
+  });
+
+  const signupBtns = document.querySelectorAll(".signupBtn");
+
+  signupBtns.forEach(signupBtn => {
+    signupBtn.addEventListener("click", async (event) => {
+      event.preventDefault();
+      const tab = signupBtn.dataset.tab;
+
+      if (tab === "consumer") {
+        const username = document.getElementById("username").value;
+        const email = document.getElementById("consumerEmail").value;
+        const password = document.getElementById("password").value;
+
+        if (!username || !email || !password) {
+          alert("Please fill all the fields (consumer)");
+          return;
+        }
+
+        document.getElementById("signupText").classList.add("hidden");
+        document.getElementById("spin").classList.remove("hidden"); 
+
+        try {
+          const response = await fetch("/api/signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, email, password }),
+          });
+
+          const data = await response.json();
+          //console.log(data)
+          if (response.ok) {
+            setTimeout(() => {
+              window.location.href = "/login";
+            }, 1500);
+          } else {
+            alert("Signup failed. Please try again.");
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Something went wrong. Please try again.");
+          document.getElementById("signupText").classList.remove("hidden");
+          document.getElementById("spin").classList.add("hidden"); 
+        }
+      }
+       else if (tab === "seller") {
+        const bussinessName = document.getElementById("bussinessName").value;
+        const email = document.getElementById("sellerEmail").value;
+        const password = document.getElementById("bussinessPassword").value;
+
+        if (!bussinessName || !email || !password) {
+          alert("Please fill all the fields (seller)");
+          return;
+        }
+
+        console.log("Sending signup data:", ({
+          bussinessName, email, password
+        })
+);
+      document.getElementById("signupText").classList.add("hidden");
+      document.getElementById("spin").classList.remove("hidden"); 
+        try {
+          const response = await fetch("http://localhost:3000/api/owner-signup", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ bussinessName, email, password }),
+          });
+
+          const data = await response.json();
+          //console.log("data1",data);
+          if (response.ok) {
+            setTimeout(() => {
+              window.location.href = "/login";
+            }, 1500);
+          } else {
+            alert("Signup failed. Please try again.");
+            console.log("Signup failed. Please try again")
+            document.getElementById("signupText").classList.remove("hidden");
+            document.getElementById("spin").classList.add("hidden"); 
+          }
+        } 
+        catch (error) {
+          console.error("Error:", error);
+          alert("Something went wrong. Please try again.");
+          document.getElementById("signupText").classList.remove("hidden");
+          document.getElementById("spin").classList.add("hidden"); 
+        }
+      }
+    });
+  });
+</script>
+
+    {% endblock body %}

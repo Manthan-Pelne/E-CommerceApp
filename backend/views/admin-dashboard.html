@@ -1,0 +1,125 @@
+{% extends 'base.html' %}
+{% block meta %}
+{% 
+  set seometa = { 
+    title: "", 
+    description: "", 
+    canonical: "" 
+  } 
+%} 
+  {% include 'include/meta.html' %}
+{% endblock meta %}
+{% block body %}
+
+<div class="flex gap-5">
+   <!-- Sidebar -->
+   <div id="sidebar"
+       class="fixed md:relative h-full md:h-screen w-[260px] bg-white border-r-4 border-gray-300  
+              transition-transform transform -translate-x-full md:translate-x-0">
+       <!-- Sidebar Header -->
+       <div class="flex justify-between items-center p-5 bg-gray-100 border-b-2 border-gray-300">
+           <a href="/admin-dashboard/" class="dashboard text-lg font-semibold">Dashboard</a>
+           <button id="closeBtn" class="cursor-pointer text-black hover:text-gray-700 md:hidden">✖</button>
+       </div>
+
+       <!-- Sidebar Menu -->
+       <nav class="p-5 h-full space-y-3">
+        <a href="#" data-page="admin-home" class="sidebar-link block px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 
+        hover:bg-gray-200 transition">🏠 Home</a>
+        <a href="#" data-page="products" class="sidebar-link block px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 
+                        hover:bg-gray-200 transition">📦 Products</a>
+        <a href="#" data-page="admin-home" class="sidebar-link block px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 
+                        hover:bg-gray-200 transition">🙎🏻‍♂️ Owners Data</a>
+        <a href="#" data-page="userdata" class="sidebar-link block px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 
+                        hover:bg-gray-200 transition">🙎🏻 Users Data</a>
+        <a href="#" data-page="settings" class="sidebar-link block px-4 py-3 rounded-lg bg-gray-100 border border-gray-300 
+                        hover:bg-gray-200 transition">⚙️ Settings</a>
+        <button class="w-full px-4 py-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition">
+                            Logout
+        </button>
+        </nav>
+    
+   </div>
+
+   <!-- Main Content -->
+   <div class="flex-1 p-3 bg-gray-100">
+       <button id="openBtn" class="md:hidden p-3 bg-blue-600 text-white rounded-md">
+           ☰ Open Sidebar
+       </button>
+       <div id="main-content" class="flex-1 p-3 bg-gray-100">
+        <div id="dynamic-content" class="mt-4">
+            <!-- Content will be dynamically injected here -->
+        </div>
+       </div>
+
+   </div>
+
+
+</div>
+
+
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const sidebar = document.getElementById("sidebar");
+    const openBtn = document.getElementById("openBtn");
+    const closeBtn = document.getElementById("closeBtn");
+
+    // Open sidebar when clicking the open button
+    openBtn.addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+    });
+
+    // Close sidebar when clicking the close button
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+    });
+})
+    
+    
+ document.querySelector(".dashboard").addEventListener("click", () => {
+    if (localStorage.getItem("selectedPage")) { 
+        localStorage.removeItem("selectedPage"); 
+    }
+});
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    const storedPage = localStorage.getItem("selectedPage") || "admin-home"; // Default to 'home'
+    loadPage(storedPage); // Load last opened page
+
+    document.querySelectorAll("a[data-page]").forEach(link => {
+        link.addEventListener("click", function (event) {
+            event.preventDefault(); // Prevent full page reload
+            const page = this.getAttribute("data-page");
+
+            localStorage.setItem("selectedPage", page); // Save selected page
+            loadPage(page);
+        });
+    });
+});
+
+  function loadPage(page) {
+    fetch(`/${page}`) // Fetch the Nunjucks-rendered page
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById("main-content").innerHTML = html;
+            // Execute scripts inside the newly loaded content
+            const scripts = document.getElementById("main-content").querySelectorAll("script");
+            scripts.forEach(script => {
+                const newScript = document.createElement("script");
+                newScript.textContent = script.textContent;
+                document.body.appendChild(newScript).parentNode.removeChild(newScript);
+            });
+        })
+        .catch(error => console.error("Error loading page:", error));
+}
+
+
+
+
+</script>
+
+
+{% endblock body %}

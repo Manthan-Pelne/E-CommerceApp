@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% block meta %}
+{% 
+  set seometa = { 
+    title: "", 
+    description: "", 
+    canonical: "" 
+  } 
+%} 
+  {% include 'include/meta.html' %}
+{% endblock meta %}
+{% block body %}
+
+<section class='max-w-screen-2xl  mx-auto bg'> 
+  
+    <div class='m-auto px-8 py-8 flex justify-between gap-10'>
+       <div class='text-[#f5f4f0] w-[38%] m-auto flex flex-col gap-5 leading-[80px]'>
+          <p class='text-[90px] font-extrabold'>WELCOME <br/> BACK</p>
+          <p class='text-[18px] leading-[25px]'>Sign back in Lorem ipsum dolor sit amet consectetur adipisicing elit. <br/> the art of being human.</p>
+          <img class=' w-[70%]' src="/cover.png" alt="" />
+       </div>
+    
+       <div class='w-[40%] pt-16'>
+        <div class='flex flex-col py-[50px] px-12 bg-[#f5f4f0] w-[90%] m-auto'>
+    
+          <label class=' tracking-wide rounded-[3px] text-[#074839] font-[900] text-[20px]' htmlFor="">Email</label>
+          <input required type="email" name="email" id="email" class='border-[1px] mt-2 py-2 border-gray-400' type="text" />
+    
+          <label  class='mt-8 tracking-wide rounded-[3px] text-[#074839] font-[900] text-[20px]' htmlFor="">Password</label>
+          <input required type="" name="password" id="password" class='border-[1px] mt-2 py-2 border-gray-400' type="text" />
+    
+          <button class='loginBtn flex cursor-pointer justify-center items-center mt-10 bg-[#043328]  text-white py-3 font-bold tracking-wide rounded-[3px]'>
+            <span id="loginText">LOGIN</span>
+            <svg id="spin" class="hidden animate-spin" xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24"><g fill="currentColor"><path fill-rule="evenodd" d="M12 19a7 7 0 1 0 0-14a7 7 0 0 0 0 14m0 3c5.523 0 10-4.477 10-10S17.523 2 12 2S2 6.477 2 12s4.477 10 10 10" clip-rule="evenodd" opacity="0.2"/><path d="M2 12C2 6.477 6.477 2 12 2v3a7 7 0 0 0-7 7z"/></g></svg>
+          </button>
+    
+         
+          <p class="mt-8 text-center">New Here? <a href="/signup" class=" underline">Sign Up</a> first!</p>
+       </div>
+       </div>
+    </div>
+    
+    </section>
+    
+    <script>
+      const loginBtn = document.querySelector(".loginBtn");
+
+    loginBtn.addEventListener("click", async (event) => {
+    event.preventDefault();
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      if (!email || !password) {
+        alert("Please fill all the fields");
+        return;
+      }
+
+      document.getElementById("loginText").classList.add("hidden");
+      document.getElementById("spin").classList.remove("hidden"); 
+
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        });
+
+        const data = await response.json();
+        console.log(data.user.role)
+        const role  = data.user.role;
+          
+        if (response.ok) {
+          
+          console.log(document.getElementById("loginText"));
+ 
+          setTimeout(() => {
+
+            window.location.href = "/"+ role + "/dashboard"  ;
+          }, 1500);
+        } else {
+          alert("Signup failed. Please try again.");
+        }
+      } catch (error) {
+        console.error("Error:", error);
+        alert("Something went wrong. Please try again.");
+
+        document.getElementById("loginText").classList.remove("hidden");
+        document.getElementById("spin").classList.add("hidden"); 
+      }
+  })
+    </script>
+
+    {% endblock body %}

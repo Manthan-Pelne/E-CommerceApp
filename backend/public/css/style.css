@@ -1,0 +1,32 @@
+
+
+.bg{
+    background: #043328;
+    background: linear-gradient(349deg, rgba(4,51,40,1) 35%, rgba(4,51,40,0.8688725490196079) 54%, rgba(4,51,40,0.9809173669467787) 98%);
+}
+
+.signupBtn{
+    background: rgb(4,51,40);
+    background: linear-gradient(0deg, rgba(4,51,40,1) 35%, rgba(4,51,40,0.8688725490196079) 54%, rgba(4,51,40,0.9809173669467787) 98%);
+}
+
+.loginBtn{
+    background: rgb(4,51,40);
+    background: linear-gradient(0deg, rgba(4,51,40,1) 35%, rgba(4,51,40,0.8688725490196079) 54%, rgba(4,51,40,0.9809173669467787) 98%);
+}
+
+
+
+.red-hat{
+  font-family: "Archivo", serif;
+  font-optical-sizing: auto;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100;
+}
+
+.img-section {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  background: #429a86;
+ }

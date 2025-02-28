@@ -1,0 +1,104 @@
+
+
+   
+    <h1 class="text-[30px] tracking-wide font-extrabold text-gray-700">Our Products</h1>
+    <p class="text-gray-500 tracking-wide">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Esse ab incidunt maiores</p>
+
+ <!-- Sorting Dropdown -->
+ <div class="flex items-center mt-10 justify-start gap-3 mb-4">
+    <label for="sort" class="text-gray-700 font-medium">Sort By:</label>
+    <select id="sort" class="bg-white border border-gray-300 text-gray-700 px-7 py-2 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-[#429A86] focus:border-[#429A86]">
+        <option value="default">Default</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="rating-high">Rating: High to Low</option>
+        <option value="rating-low">Rating: Low to High</option>
+    </select>
+</div>
+
+    <div class="bg-white w-[80%] mt-4 p-4 rounded-lg shadow-md">
+
+    
+        <!-- Table Header -->
+        <div class="flex bg-[#316155] rounded-lg text-white items-center border-b border-gray-300 px-4 py-3 font-medium">
+            <p class="w-1/4 text-center">Image</p>
+            <p class="w-1/4 text-center">Product Name</p>
+            <p class="w-1/4 text-center">Price</p>
+            <p class="w-1/4 text-center">Rating</p>
+            <p class="w-1/4 text-center">Action</p>
+        </div>
+    
+        <!-- Table Rows -->
+        <div id="product-list" class="divide-y mt-2 divide-gray-200">
+            <!-- Products will be dynamically inserted here -->
+        </div>
+    </div>
+    
+    <script>
+        // Product Data
+        var products = [
+            { id: 1, name: "Product 1", price: 99, rating: 4.5, img: "/img/p1.jpg" },
+            { id: 2, name: "Product 2", price: 129, rating: 4.7, img: "/img/p2.jpg" },
+            { id: 3, name: "Product 3", price: 79, rating: 4.3, img: "/img/p1.jpg" },
+            { id: 4, name: "Product 4", price: 149, rating: 4.8, img: "/img/p2.jpg" }
+        ];
+    
+        var productList = document.getElementById("product-list");
+        var sortSelect = document.getElementById("sort");
+
+        
+    
+        // Function to render products
+        function renderProducts(data) {
+            productList.innerHTML = ""; // Clear the list
+            data.forEach(product => {
+                productList.innerHTML += `
+                    <div class="flex items-center px-4 py-3">
+                        <div class="w-1/4 flex justify-center">
+                            <img class="w-12 h-12 rounded-lg object-cover" src="${product.img}" alt="">
+                        </div>
+                        <p class="w-1/4 text-center">${product.name}</p>
+                        <p class="w-1/4 text-center">$${product.price}</p>
+                        <p class="w-1/4 text-center">⭐ ${product.rating}</p>
+                        <div class="w-1/4 flex justify-center">
+                        <button class="bg-red-500 text-white px-3 py-2 rounded-lg hover:bg-red-700 transition flex items-center">
+                        🗑 Delete
+                        </button>
+                        </div>
+                    </div>
+                `;
+            });
+        }
+    
+        // Function to handle sorting
+        function sortProducts() {
+            let sortedProducts = [...products];
+            switch (sortSelect.value) {
+                case "price-high":
+                    sortedProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case "price-low":
+                    sortedProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case "rating-high":
+                    sortedProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                case "rating-low":
+                    sortedProducts.sort((a, b) => a.rating - b.rating);
+                    break;
+                default:
+                    sortedProducts = [...products];
+            }
+    
+            renderProducts(sortedProducts);
+        }
+    
+        // Event listener for sorting
+        sortSelect.addEventListener("change", sortProducts);
+    
+        // Initial render
+        renderProducts(products);
+    </script>
+    
+    
+    
